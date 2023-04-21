@@ -2,17 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --color-white: '#ffffff';
-  --color-neutral-300: '#ffffff';
-  --color-neutral-400: '#A8A8A8';
-  --color-neutral-700: '#333333';
-  --color-slate-100: '#F8F8FF';
-  --color-yellow-100: '#F5F5DC';
-  --color-red-900: '#800020';
+@layer base {
+  :root {
+    --color-white: #ffffff;
+    --color-neutral-300: #ffffff;
+    --color-neutral-400: #a8a8a8;
+    --color-neutral-700: #333333;
+    --color-slate-100: #f8f8ff;
+    --color-yellow-100: #f5f5dc;
+    --color-red-900: #800020;
+  }
 }
 
 body {
   color: var(--color-neutral-700);
-  background-color: var(--color-white)
+  background-color: var(--color-white);
 }

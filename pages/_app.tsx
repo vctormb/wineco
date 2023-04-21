@@ -7,7 +7,7 @@ import { ReactElement, ReactNode } from 'react'
 
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '600', '700'],
+  weight: ['300', '400', '600', '700'],
   fallback: ['sans-serif'],
   display: 'swap', // minimizes the risk of invisible text or layout shift
   variable: '--font-inter',
