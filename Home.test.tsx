@@ -1,4 +1,4 @@
-import Home from './index'
+import Home from './pages/index'
 import { screen, setup } from './test-utils/setup'
 
 describe('Home', () => {
