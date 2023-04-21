@@ -1,3 +1,5 @@
+const { fontFamily } = require('tailwindcss/defaultTheme')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -6,11 +8,28 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      white: 'var(--color-white)',
+      neutral: {
+        300: 'var(--color-neutral-300)',
+        400: 'var(--color-neutral-400)',
+        700: 'var(--color-neutral-700)',
+      },
+      slate: {
+        100: 'var(--color-slate-100)',
+      },
+      yellow: {
+        100: 'var(--color-yellow-100)',
+      },
+      red: {
+        900: 'var(--color-red-900)',
+      },
+    },
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      fontFamily: {
+        sans: ['var(--font-inter)', ...fontFamily.sans],
       },
     },
   },
