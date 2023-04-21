@@ -68,8 +68,8 @@ export function Footer() {
   return (
     <footer>
       <div className="bg-neutral-700 py-12 px-20">
-        <div className="flex justify-between">
-          <div className="flex flex-col">
+        <div className="flex flex-col md:flex-row md:justify-between">
+          <div className="flex flex-col mb-6">
             <span className="text-white font-semibold text-2xl">Wine Co.</span>
             <ul className="flex gap-4 flex-col mt-6">
               {wineCo.map((item) => (
