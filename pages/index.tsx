@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <main className="flex min-h-screen">
+    <div className="flex min-h-screen">
       hello world
-    </main>
+    </div>
   )
 }

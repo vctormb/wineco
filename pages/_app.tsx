@@ -1,6 +1,9 @@
 import '@/styles/globals.css'
+import { Layout } from '@/templates/layout'
+import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { Inter } from 'next/font/google'
+import { ReactElement, ReactNode } from 'react'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -10,7 +13,17 @@ const inter = Inter({
   variable: '--font-inter',
 })
 
-export default function App({ Component, pageProps }: AppProps) {
+type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
+  const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>)
+
   return (
     <>
       <style jsx global>
@@ -20,7 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
           }
         `}
       </style>
-      <Component {...pageProps} />
+      {getLayout(<Component {...pageProps} />)}
     </>
   )
 }
