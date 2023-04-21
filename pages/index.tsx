@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="flex">
       <div className="flex justify-center min-h-screen w-full py-24 px-20 lg:py-24 lg:px-24 bg-slate-100">
-        <section className="flex justify-between h-full gap-10 mt-20 max-h-[30rem] lg:max-h-[26rem]">
+        <section className="flex justify-between h-full gap-10  md:max-h-[30rem] lg:mt-20 lg:max-h-[26rem]">
           <div className="flex flex-[1.4] flex-col justify-end">
             <div className="text-center md:max-w-2xl lg:max-w-full lg:text-left">
               <p className="text-red-900 font-semibold mb-5">
@@ -20,7 +20,7 @@ export default function Home() {
               </p>
               <div className="flex flex-col justify-center gap-5 md:gap-10 md:flex-row lg:justify-start mt-10">
                 <ButtonLink href="#">Shop Now</ButtonLink>
-                <ButtonLink href="#" color="white">
+                <ButtonLink href="/setup/create" color="white">
                   Take the Wine Quiz
                 </ButtonLink>
               </div>
@@ -29,6 +29,7 @@ export default function Home() {
           <div className="hidden lg:block flex-1">
             <div className="bg-neutral-300 rounded-lg h-full w-full relative">
               <Image
+                draggable={false}
                 alt="Wine cheers"
                 src="/cheers-wine.jpg"
                 className="h-full rounded-lg object-cover"

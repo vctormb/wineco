@@ -17,11 +17,11 @@ export function Navbar() {
             <Link href="#">Our Blog</Link>
           </li>
           <li>
-            <Link href="#">Wine Quiz</Link>
+            <Link href="/setup/create">Wine Quiz</Link>
           </li>
         </ul>
         <div className="hidden md:flex gap-2">
-          <ButtonLink href="#" size="sm" color="yellow">
+          <ButtonLink href="/setup/create" size="sm" color="yellow">
             Sign up
           </ButtonLink>
           <ButtonLink href="#" size="sm" variant="ghost" color="white">

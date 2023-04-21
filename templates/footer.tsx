@@ -45,7 +45,7 @@ const ourResources: FooterLinks[] = [
   },
   {
     label: 'Wine Quiz',
-    href: '#',
+    href: '/setup/create',
   },
 ]
 
