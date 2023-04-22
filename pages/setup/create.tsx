@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { Form } from '@/components/form'
-import { ButtonLink } from '@/components/button'
+import { Button } from '@/components/button/button'
 
 export default function Create() {
   return (
@@ -16,7 +16,7 @@ export default function Create() {
         <Form.HelperMessage>Invalid email</Form.HelperMessage>
       </div>
       <div className="mt-10">
-        <ButtonLink href="#">Next</ButtonLink>
+        <Button>Next</Button>
       </div>
     </div>
   )

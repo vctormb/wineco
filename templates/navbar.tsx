@@ -21,7 +21,7 @@ export function Navbar() {
           </li>
         </ul>
         <div className="hidden md:flex gap-2">
-          <ButtonLink href="/setup/create" size="sm" color="yellow">
+          <ButtonLink href="/setup/create" size="sm" color="secondary">
             Sign up
           </ButtonLink>
           <ButtonLink href="#" size="sm" variant="ghost" color="white">

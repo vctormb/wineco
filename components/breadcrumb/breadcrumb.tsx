@@ -29,6 +29,7 @@ export function Breadcrumb({
       prev,
       <span
         key={i}
+        data-testid={`arrow-${i}`}
         className={clsx('mx-2', {
           'text-neutral-300': isDisabled(i),
         })}
