@@ -1,5 +1,13 @@
-import clsx from 'clsx'
+import { cva } from 'class-variance-authority'
 import { ReactNode } from 'react'
+
+export const breadcrumbStyles = cva(null, {
+  variants: {
+    isDisabled: {
+      true: 'text-neutral-300',
+    },
+  },
+})
 
 export function Breadcrumb({
   paths,
@@ -17,8 +25,8 @@ export function Breadcrumb({
       return (
         <span
           key={path}
-          className={clsx({
-            'text-neutral-300': isDisabled(i),
+          className={breadcrumbStyles({
+            isDisabled: isDisabled(i),
           })}
         >
           {path}
@@ -30,8 +38,8 @@ export function Breadcrumb({
       <span
         key={i}
         data-testid={`arrow-${i}`}
-        className={clsx('mx-2', {
-          'text-neutral-300': isDisabled(i),
+        className={breadcrumbStyles({
+          isDisabled: isDisabled(i),
         })}
       >
         {'>'}
@@ -39,5 +47,5 @@ export function Breadcrumb({
       curr,
     ])
 
-  return <div className="font-semibold">{breadcrumbs}</div>
+  return <div className="font-semibold flex gap-2">{breadcrumbs}</div>
 }

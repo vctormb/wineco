@@ -1,14 +1,21 @@
-import Link, { LinkProps } from 'next/link'
 import { AnchorHTMLAttributes } from 'react'
-import { ButtonProps, buttonStyles } from './button'
+import Link, { LinkProps } from 'next/link'
+import { VariantProps } from 'class-variance-authority'
+import { buttonStyles } from './button'
 
-type Props = ButtonProps & LinkProps & AnchorHTMLAttributes<HTMLAnchorElement>
+type Props = LinkProps &
+  AnchorHTMLAttributes<HTMLAnchorElement> &
+  VariantProps<typeof buttonStyles>
 
-export function ButtonLink({
-  size = 'md',
-  color = 'primary',
-  variant = 'solid',
-  ...props
-}: Props) {
-  return <Link className={buttonStyles({ size, color, variant })} {...props} />
+export function ButtonLink({ size, color, variant, ...props }: Props) {
+  return (
+    <Link
+      {...props}
+      className={buttonStyles({
+        size,
+        color,
+        variant,
+      })}
+    />
+  )
 }

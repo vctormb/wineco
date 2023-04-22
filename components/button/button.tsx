@@ -1,40 +1,72 @@
-import clsx from 'clsx'
 import { ButtonHTMLAttributes } from 'react'
+import { VariantProps, cva } from 'class-variance-authority'
 
-export type ButtonProps = {
-  size?: 'sm' | 'md'
-  color?: 'primary' | 'secondary' | 'white'
-  variant?: 'solid' | 'ghost' | 'outline'
-}
+export const buttonStyles = cva('rounded-lg border font-thin cursor-pointer', {
+  variants: {
+    size: {
+      sm: 'px-4 py-2 text-sm',
+      md: ['px-8', 'py-3'],
+    },
+    variant: {
+      solid: null,
+      ghost: 'border-transparent',
+    },
+    color: {
+      primary: null,
+      secondary: null,
+      white: null,
+    },
+    disabled: {
+      true: 'bg-neutral-300 text-neutral-400 border-transparent',
+    },
+  },
+  compoundVariants: [
+    {
+      variant: 'solid',
+      color: 'primary',
+      disabled: false,
+      class: 'bg-red-900 text-white',
+    },
+    {
+      variant: 'solid',
+      color: 'secondary',
+      disabled: false,
+      class: 'border-transparent bg-yellow-100 text-neutral-700',
+    },
+    {
+      variant: 'solid',
+      color: 'white',
+      disabled: false,
+      class: 'bg-white border-neutral-300 text-neutral-700',
+    },
+    {
+      variant: 'ghost',
+      color: 'white',
+      disabled: false,
+      class: 'text-white',
+    },
+  ],
+  defaultVariants: {
+    size: 'md',
+    color: 'primary',
+    variant: 'solid',
+    disabled: false
+  },
+})
 
-type Props = ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
+type Props = ButtonHTMLAttributes<HTMLButtonElement> &
+  VariantProps<typeof buttonStyles>
 
-export const buttonStyles = ({ size, color, variant }: ButtonProps) =>
-  clsx('rounded-lg border font-thin', {
-    // size
-    'px-8 py-3': size === 'md',
-    'px-4 py-2 text-sm': size === 'sm',
-    // variant solid
-    'bg-red-900 text-white': variant === 'solid' && color === 'primary',
-    'border-transparent bg-yellow-100 text-neutral-700':
-      variant === 'solid' && color === 'secondary',
-    'bg-white border-neutral-300 text-neutral-700':
-      variant === 'solid' && color === 'white',
-    // variant ghost
-    'text-white bg-transparent border-transparent':
-      variant === 'ghost' && color === 'white',
-  })
-
-export function Button({
-  size = 'md',
-  color = 'primary',
-  variant = 'solid',
-  ...props
-}: Props) {
+export function Button({ size, color, variant, ...props }: Props) {
   return (
     <button
-      className={buttonStyles({ size, color, variant })}
       {...props}
+      className={buttonStyles({
+        size,
+        color,
+        variant,
+        disabled: props.disabled,
+      })}
     />
   )
 }
