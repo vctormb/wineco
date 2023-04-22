@@ -5,6 +5,7 @@ import { Stepper, useStepper } from '@/components/stepper'
 import { CreateAccountStepOne } from '@/templates/create-account-step-one'
 import { CreateAccountStepTwo } from '@/templates/create-account-step-two'
 import { CreateAccountStepThree } from '@/templates/create-account-step-three'
+import { CreateAccountStepFour } from '@/templates/create-account-step-four'
 
 export default function Create() {
   const stepper = useStepper({ step: 'step1' })
@@ -37,7 +38,7 @@ export default function Create() {
           <CreateAccountStepThree onNext={onNext} />
         </Stepper.Content>
         <Stepper.Content stepKey="step4">
-          step 4
+          <CreateAccountStepFour onNext={onNext} />
         </Stepper.Content>
       </Stepper.Root>
     </div>
