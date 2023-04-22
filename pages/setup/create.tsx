@@ -4,6 +4,7 @@ import { Breadcrumb } from '@/components/breadcrumb'
 import { Stepper, useStepper } from '@/components/stepper'
 import { CreateAccountStepOne } from '@/templates/create-account-step-one'
 import { CreateAccountStepTwo } from '@/templates/create-account-step-two'
+import { CreateAccountStepThree } from '@/templates/create-account-step-three'
 
 export default function Create() {
   const stepper = useStepper({ step: 'step1' })
@@ -33,7 +34,10 @@ export default function Create() {
           <CreateAccountStepTwo onNext={onNext} />
         </Stepper.Content>
         <Stepper.Content stepKey="step3">
-          step 3
+          <CreateAccountStepThree onNext={onNext} />
+        </Stepper.Content>
+        <Stepper.Content stepKey="step4">
+          step 4
         </Stepper.Content>
       </Stepper.Root>
     </div>
