@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { Button } from '@/components/button'
 import { Form } from '@/components/form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/router'
 
 const validationSchema = z.object({
   fullName: z.string().min(1, { message: 'Name is required' }),
@@ -19,6 +20,7 @@ export function CreateAccountStepSeven({
   leadEmail,
   onSubmit: onSubmitProp,
 }: Props) {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -30,6 +32,7 @@ export function CreateAccountStepSeven({
 
   const handleFormSubmit = handleSubmit((data) => {
     onSubmitProp(data)
+    router.push('/setup/exceptional-wines')
   })
 
   return (
@@ -37,7 +40,7 @@ export function CreateAccountStepSeven({
       <h1 className="text-2xl font-semibold mt-7">
         {"it's time to create a password"}
       </h1>
-      <div className="flex gap-2 items-center my-10 text-sm">
+      <div className="flex gap-2 items-center my-5 text-sm">
         <p>your email is</p>
         <span className="bg-yellow-100 font-semibold rounded-md px-3 py-1">
           {leadEmail}
@@ -69,7 +72,7 @@ export function CreateAccountStepSeven({
         </div>
         <div className="mt-10">
           <Button type="submit" disabled={!isValid}>
-            Next
+            Submit and go to exceptional wines
           </Button>
         </div>
       </form>
