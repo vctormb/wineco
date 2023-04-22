@@ -2,9 +2,17 @@
 
 Wine Co. is a Wine e-commerce made with Next.js and Tailwind
 
-### To start the project
+### Run the project
 
-- npm run dev
+Install dependencies
+```
+npm i
+```
+
+Run in dev mode
+```
+npm run dev
+```
 
 ### Better DX
 

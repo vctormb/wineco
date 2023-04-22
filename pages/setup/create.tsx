@@ -1,29 +1,22 @@
-import { ReactElement } from 'react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Breadcrumb } from '@/components/breadcrumb'
-import { Form } from '@/components/form'
-import { Button } from '@/components/button'
+import { ReactElement, useState } from 'react'
 import Link from 'next/link'
-
-const validationSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: 'Email is required' })
-    .email({ message: 'Invalid email address' }),
-})
+import { Breadcrumb } from '@/components/breadcrumb'
+import { Stepper, useStepper } from '@/components/stepper'
+import { CreateAccountStepOne } from '@/templates/create-account-step-one'
+import { CreateAccountStepTwo } from '@/templates/create-account-step-two'
 
 export default function Create() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm({ resolver: zodResolver(validationSchema), mode: 'onTouched' })
+  const stepper = useStepper({ step: 'step1' })
+  const [formValues, setFormValues] = useState({})
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data)
-  })
+  function onSubmit(data: object) {
+    console.log('data > ', data)
+    console.log('formValues', formValues)
+  }
+
+  function onNext(data: object) {
+    setFormValues((s) => ({ ...s, ...data }))
+  }
 
   return (
     <div className="flex flex-col px-8 mt-10">
@@ -31,29 +24,23 @@ export default function Create() {
         activeIndex={0}
         paths={['create account', 'exceptional wines', 'wines catalog']}
       />
-      <h1 className="text-2xl font-semibold mt-7">let&apos;s get started 🍷</h1>
-      <form onSubmit={onSubmit}>
-        <div className="mt-10 max-w-sm">
-          <Form.TextField
-            placeholder="Enter your email"
-            fullWidth
-            {...register('email')}
-          />
-          <Form.HelperMessage show={!!errors.email}>
-            {errors.email?.message?.toString()}
-          </Form.HelperMessage>
-        </div>
-        <div className="mt-10">
-          <Button type="submit" disabled={!isValid}>
-            Next
-          </Button>
-        </div>
-      </form>
+
+      <Stepper.Root {...stepper}>
+        <Stepper.Content stepKey="step1">
+          <CreateAccountStepOne onNext={onNext} />
+        </Stepper.Content>
+        <Stepper.Content stepKey="step2">
+          <CreateAccountStepTwo onNext={onNext} />
+        </Stepper.Content>
+        <Stepper.Content stepKey="step3">
+          step 3
+        </Stepper.Content>
+      </Stepper.Root>
     </div>
   )
 }
 
-Create.getLayout = function getLayout(page: ReactElement) {
+Create.getLayout = (page: ReactElement) => {
   return (
     <>
       <nav className="py-5 px-8">
