@@ -4,6 +4,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { Button } from '@/components/button'
 import { RadioGroup } from '@/components/radio-group'
 import { useStepperContext } from '@/components/stepper'
+import { OptionContent } from './option-content'
 
 const validationSchema = z.object({
   oftenDrinkWine: z.string(),
@@ -49,24 +50,24 @@ export function CreateAccountStepThree({ onNext }: Props) {
                   value={value}
                   aria-label="Wine experience"
                 >
-                  <RadioGroup.Content>
+                  <OptionContent>
                     <RadioGroup.Item value="everyMeal" id="r1" />
                     <RadioGroup.Label htmlFor="r1">Every meal</RadioGroup.Label>
-                  </RadioGroup.Content>
-                  <RadioGroup.Content>
+                  </OptionContent>
+                  <OptionContent>
                     <RadioGroup.Item value="often" id="r2" />
                     <RadioGroup.Label htmlFor="r2">Often</RadioGroup.Label>
-                  </RadioGroup.Content>
-                  <RadioGroup.Content>
+                  </OptionContent>
+                  <OptionContent>
                     <RadioGroup.Item value="onlySpecialOccasions" id="r3" />
                     <RadioGroup.Label htmlFor="r3">
                       Only special occasions
                     </RadioGroup.Label>
-                  </RadioGroup.Content>
-                  <RadioGroup.Content>
+                  </OptionContent>
+                  <OptionContent>
                     <RadioGroup.Item value="rarely" id="r4" />
                     <RadioGroup.Label htmlFor="r4">Rarely</RadioGroup.Label>
-                  </RadioGroup.Content>
+                  </OptionContent>
                 </RadioGroup.Root>
               )
             }}

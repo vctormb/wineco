@@ -4,6 +4,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { Button } from '@/components/button'
 import { RadioGroup } from '@/components/radio-group'
 import { useStepperContext } from '@/components/stepper'
+import { OptionContent } from './option-content'
 
 const validationSchema = z.object({
   foodExperience: z.string(),
@@ -49,36 +50,36 @@ export function CreateAccountStepTwo({ onNext }: Props) {
                   value={value}
                   aria-label="Wine experience"
                 >
-                  <RadioGroup.Content>
+                  <OptionContent>
                     <RadioGroup.Item value="level1" id="r1" />
                     <RadioGroup.Label htmlFor="r1">
                       {"I'm new to wine"}
                     </RadioGroup.Label>
-                  </RadioGroup.Content>
-                  <RadioGroup.Content>
+                  </OptionContent>
+                  <OptionContent>
                     <RadioGroup.Item value="level2" id="r2" />
                     <RadioGroup.Label htmlFor="r2">
                       {"I don't have too much experience"}
                     </RadioGroup.Label>
-                  </RadioGroup.Content>
-                  <RadioGroup.Content>
+                  </OptionContent>
+                  <OptionContent>
                     <RadioGroup.Item value="level3" id="r3" />
                     <RadioGroup.Label htmlFor="r3">
                       {'Mid level'}
                     </RadioGroup.Label>
-                  </RadioGroup.Content>
-                  <RadioGroup.Content>
+                  </OptionContent>
+                  <OptionContent>
                     <RadioGroup.Item value="level4" id="r4" />
                     <RadioGroup.Label htmlFor="r4">
                       {'Experienced'}
                     </RadioGroup.Label>
-                  </RadioGroup.Content>
-                  <RadioGroup.Content>
+                  </OptionContent>
+                  <OptionContent>
                     <RadioGroup.Item value="level5" id="r5" />
                     <RadioGroup.Label htmlFor="r5">
                       {'Advanced'}
                     </RadioGroup.Label>
-                  </RadioGroup.Content>
+                  </OptionContent>
                 </RadioGroup.Root>
               )
             }}
