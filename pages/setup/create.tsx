@@ -8,14 +8,18 @@ import { CreateAccountStepThree } from '@/templates/create-account-step-three'
 import { CreateAccountStepFour } from '@/templates/create-account-step-four'
 import { CreateAccountStepFive } from '@/templates/create-account-step-five'
 import { CreateAccountStepSix } from '@/templates/create-account-step-six'
+import { CreateAccountStepSeven } from '@/templates/create-account-step-seven'
 
 export default function Create() {
   const stepper = useStepper({ step: 'step1' })
-  const [formValues, setFormValues] = useState({})
+  const [formValues, setFormValues] = useState<Record<string, any>>({})
 
   function onSubmit(data: object) {
-    console.log('data > ', data)
-    console.log('formValues', formValues)
+    const payload = {
+      ...data,
+      ...formValues,
+    }
+    console.log(payload)
   }
 
   function onNext(data: object) {
@@ -47,6 +51,12 @@ export default function Create() {
         </Stepper.Content>
         <Stepper.Content stepKey="step6">
           <CreateAccountStepSix onNext={onNext} />
+        </Stepper.Content>
+        <Stepper.Content stepKey="step7">
+          <CreateAccountStepSeven
+            leadEmail={formValues.email}
+            onSubmit={onSubmit}
+          />
         </Stepper.Content>
       </Stepper.Root>
     </div>
