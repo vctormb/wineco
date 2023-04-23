@@ -20,7 +20,7 @@ export function Navbar() {
             <Link href="/setup/create">Wine Quiz</Link>
           </li>
         </ul>
-        <div className="hidden md:flex gap-2">
+        <div className="md:flex gap-2">
           <ButtonLink href="/setup/create" size="sm" color="secondary">
             Sign up
           </ButtonLink>

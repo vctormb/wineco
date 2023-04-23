@@ -1,7 +1,7 @@
 import { ReactElement, useState } from 'react'
 import Link from 'next/link'
 import { Breadcrumb } from '@/components/breadcrumb'
-import { Button } from '@/components/button'
+import { Button, ButtonLink } from '@/components/button'
 import { ProductItem, WineItem } from '@/templates/product-item'
 
 const wines: WineItem[] = [
@@ -72,6 +72,9 @@ export default function ExceptionalWines() {
         ))}
       </div>
       <div className="my-10">
+        <ButtonLink href="#" size="sm" type="button" variant="ghost">
+          Skip
+        </ButtonLink>
         <Button
           type="submit"
           size="sm"

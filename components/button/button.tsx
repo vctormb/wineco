@@ -45,6 +45,12 @@ export const buttonStyles = cva('rounded-lg border font-thin cursor-pointer', {
       disabled: false,
       class: 'text-white',
     },
+    {
+      variant: 'ghost',
+      color: 'primary',
+      disabled: false,
+      class: 'text-red-900',
+    },
   ],
   defaultVariants: {
     size: 'md',

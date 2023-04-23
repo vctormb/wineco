@@ -34,7 +34,7 @@ export function CreateAccountStepThree({ onNext }: Props) {
   return (
     <>
       <h1 className="text-2xl font-semibold mt-7">
-        {"what's your prior experience with Wine?"}
+        how often do you drink Wine?
       </h1>
       <form onSubmit={onSubmit}>
         <div className="mt-10 max-w-sm">
