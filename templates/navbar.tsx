@@ -5,7 +5,7 @@ export function Navbar() {
   return (
     <div className="relative">
       <nav className="absolute w-full flex justify-between items-center bg-red-900 py-5 px-8 text-white">
-        <span className="text-xl font-semibold">Wine Co.</span>
+        <Link href="/" className="text-xl font-semibold">Wine Co.</Link>
         <ul className="hidden md:flex gap-7 font-thin">
           <li>
             <Link href="#">About us</Link>
