@@ -4,6 +4,7 @@ import { Button } from '@/components/button'
 import { Form } from '@/components/form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
+import { MIXPANEL } from '@/utils/mixpanel'
 
 const validationSchema = z.object({
   fullName: z.string().min(1, { message: 'Name is required' }),
@@ -31,6 +32,13 @@ export function CreateAccountStepSeven({
   })
 
   const handleFormSubmit = handleSubmit((data) => {
+    MIXPANEL.track({
+      eventName: 'Provided Password from Create Acc',
+      properties: {
+        distinct_id: leadEmail,
+        'Full Name': data.fullName,
+      },
+    })
     onSubmitProp(data)
     router.push('/setup/exceptional-wines')
   })

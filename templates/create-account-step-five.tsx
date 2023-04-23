@@ -5,6 +5,7 @@ import { Button } from '@/components/button'
 import { useStepperContext } from '@/components/stepper'
 import { OptionContent } from './option-content'
 import { RadioGroup } from '@/components/radio-group'
+import { MIXPANEL } from '@/utils/mixpanel'
 
 const validationSchema = z.object({
   sweetOrDryWine: z.string(),
@@ -12,10 +13,11 @@ const validationSchema = z.object({
 
 type FormFields = z.infer<typeof validationSchema>
 type Props = {
+  leadEmail: string
   onNext: (data: FormFields) => void
 }
 
-export function CreateAccountStepFive({ onNext }: Props) {
+export function CreateAccountStepFive({ leadEmail, onNext }: Props) {
   const stepper = useStepperContext()
   const {
     control,
@@ -27,6 +29,13 @@ export function CreateAccountStepFive({ onNext }: Props) {
   })
 
   const onSubmit = handleSubmit((data) => {
+    MIXPANEL.track({
+      eventName: 'Provided Sweet or Dry Wine from Create Acc',
+      properties: {
+        distinct_id: leadEmail,
+        'Sweet Or Dry Wine': data.sweetOrDryWine,
+      },
+    })
     onNext(data)
     stepper.setStep('step6')
   })

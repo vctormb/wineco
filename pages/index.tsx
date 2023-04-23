@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { ButtonLink } from '@/components/button'
+import { MIXPANEL } from '@/utils/mixpanel'
 
 export default function Home() {
   return (
@@ -19,8 +20,19 @@ export default function Home() {
                 doorstep, so you can unwind and savor the moment.
               </p>
               <div className="flex flex-col justify-center gap-5 md:gap-10 md:flex-row lg:justify-start mt-10">
-                <ButtonLink href="#">Shop Now</ButtonLink>
-                <ButtonLink href="/setup/create" color="white">
+                <ButtonLink href="/#">Shop Now</ButtonLink>
+                <ButtonLink
+                  href="/setup/create"
+                  color="white"
+                  onClick={() =>
+                    MIXPANEL.track({
+                      eventName: 'Clicked Wine Quiz CTA',
+                      properties: {
+                        Content: 'hero',
+                      },
+                    })
+                  }
+                >
                   Take the Wine Quiz
                 </ButtonLink>
               </div>

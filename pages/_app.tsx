@@ -1,9 +1,11 @@
 import '@/styles/globals.css'
 import { Layout } from '@/templates/layout'
+import { MIXPANEL } from '@/utils/mixpanel'
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { Inter } from 'next/font/google'
-import { ReactElement, ReactNode } from 'react'
+import { useRouter } from 'next/router'
+import { ReactElement, ReactNode, useEffect } from 'react'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -22,6 +24,10 @@ type AppPropsWithLayout = AppProps & {
 }
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
+  useEffect(() => {
+    MIXPANEL.init()
+  }, [])
+
   const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>)
 
   return (

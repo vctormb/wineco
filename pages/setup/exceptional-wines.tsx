@@ -72,7 +72,7 @@ export default function ExceptionalWines() {
         ))}
       </div>
       <div className="my-10">
-        <ButtonLink href="#" size="sm" type="button" variant="ghost">
+        <ButtonLink href="/#" size="sm" type="button" variant="ghost">
           Skip
         </ButtonLink>
         <Button

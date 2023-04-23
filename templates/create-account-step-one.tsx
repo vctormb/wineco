@@ -4,6 +4,7 @@ import { Button } from '@/components/button'
 import { Form } from '@/components/form'
 import { useStepperContext } from '@/components/stepper'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { MIXPANEL } from '@/utils/mixpanel'
 
 const validationSchema = z.object({
   email: z
@@ -29,6 +30,13 @@ export function CreateAccountStepOne({ onNext }: Props) {
   })
 
   const onSubmit = handleSubmit((data) => {
+    MIXPANEL.track({
+      eventName: 'Provided email from Create Acc',
+      properties: {
+        distinct_id: data.email,
+      },
+    })
+
     onNext(data)
     stepper.setStep('step2')
   })

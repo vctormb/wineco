@@ -38,19 +38,19 @@ export default function Create() {
           <CreateAccountStepOne onNext={onNext} />
         </Stepper.Content>
         <Stepper.Content stepKey="step2">
-          <CreateAccountStepTwo onNext={onNext} />
+          <CreateAccountStepTwo leadEmail={formValues.email} onNext={onNext} />
         </Stepper.Content>
         <Stepper.Content stepKey="step3">
-          <CreateAccountStepThree onNext={onNext} />
+          <CreateAccountStepThree leadEmail={formValues.email} onNext={onNext} />
         </Stepper.Content>
         <Stepper.Content stepKey="step4">
-          <CreateAccountStepFour onNext={onNext} />
+          <CreateAccountStepFour leadEmail={formValues.email} onNext={onNext} />
         </Stepper.Content>
         <Stepper.Content stepKey="step5">
-          <CreateAccountStepFive onNext={onNext} />
+          <CreateAccountStepFive leadEmail={formValues.email} onNext={onNext} />
         </Stepper.Content>
         <Stepper.Content stepKey="step6">
-          <CreateAccountStepSix onNext={onNext} />
+          <CreateAccountStepSix leadEmail={formValues.email} onNext={onNext} />
         </Stepper.Content>
         <Stepper.Content stepKey="step7">
           <CreateAccountStepSeven

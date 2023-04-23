@@ -1,8 +1,10 @@
+import { MIXPANEL } from '@/utils/mixpanel'
 import Link from 'next/link'
 
 type FooterLinks = {
   label: string
   href?: string
+  onClick?: () => void
 }
 
 const wineCo: FooterLinks[] = [
@@ -18,49 +20,57 @@ const wineCo: FooterLinks[] = [
 const ourCompany: FooterLinks[] = [
   {
     label: 'Our Team',
-    href: '#',
+    href: '/#',
   },
   {
     label: 'Company Vision',
-    href: '#',
+    href: '/#',
   },
   {
     label: 'Our History',
-    href: '#',
+    href: '/#',
   },
   {
     label: 'Investorys',
-    href: '#',
+    href: '/#',
   },
 ]
 
 const ourResources: FooterLinks[] = [
   {
     label: 'The Blog',
-    href: '#',
+    href: '/#',
   },
   {
     label: 'Media',
-    href: '#',
+    href: '/#',
   },
   {
     label: 'Wine Quiz',
     href: '/setup/create',
+    onClick: () => {
+      MIXPANEL.track({
+        eventName: 'Clicked Wine Quiz CTA',
+        properties: {
+          Content: 'footer',
+        },
+      })
+    },
   },
 ]
 
 const ourWines: FooterLinks[] = [
   {
     label: 'Partners',
-    href: '#',
+    href: '/#',
   },
   {
     label: 'Wineries',
-    href: '#',
+    href: '/#',
   },
   {
     label: 'Visit',
-    href: '#',
+    href: '/#',
   },
 ]
 
@@ -106,6 +116,7 @@ export function Footer() {
                   <Link
                     href={item.href!}
                     className="text-yellow-100 font-thin text-sm"
+                    onClick={() => item.onClick?.()}
                   >
                     {item.label}
                   </Link>

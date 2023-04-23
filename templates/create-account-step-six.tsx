@@ -5,6 +5,7 @@ import { Button } from '@/components/button'
 import { useStepperContext } from '@/components/stepper'
 import { OptionContent } from './option-content'
 import { Checkbox } from '@/components/checkbox'
+import { MIXPANEL } from '@/utils/mixpanel'
 
 const validationSchema = z.object({
   typeOfFoodEnjoy: z.array(z.string()).nonempty(),
@@ -12,6 +13,7 @@ const validationSchema = z.object({
 
 type FormFields = z.infer<typeof validationSchema>
 type Props = {
+  leadEmail: string
   onNext: (data: FormFields) => void
 }
 
@@ -38,7 +40,7 @@ const options = [
   },
 ]
 
-export function CreateAccountStepSix({ onNext }: Props) {
+export function CreateAccountStepSix({ leadEmail, onNext }: Props) {
   const stepper = useStepperContext()
   const {
     control,
@@ -53,6 +55,13 @@ export function CreateAccountStepSix({ onNext }: Props) {
   })
 
   const onSubmit = handleSubmit((data) => {
+    MIXPANEL.track({
+      eventName: 'Provided Type Food from Create Acc',
+      properties: {
+        distinct_id: leadEmail,
+        'Type Of Food Enjoy': data.typeOfFoodEnjoy,
+      },
+    })
     onNext(data)
     stepper.setStep('step7')
   })

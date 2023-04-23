@@ -5,17 +5,19 @@ import { Button } from '@/components/button'
 import { RadioGroup } from '@/components/radio-group'
 import { useStepperContext } from '@/components/stepper'
 import { OptionContent } from './option-content'
+import { MIXPANEL } from '@/utils/mixpanel'
 
 const validationSchema = z.object({
-  foodExperience: z.string(),
+  wineExperience: z.string(),
 })
 
 type FormFields = z.infer<typeof validationSchema>
 type Props = {
+  leadEmail: string
   onNext: (data: FormFields) => void
 }
 
-export function CreateAccountStepTwo({ onNext }: Props) {
+export function CreateAccountStepTwo({ leadEmail, onNext }: Props) {
   const stepper = useStepperContext()
   const {
     control,
@@ -27,6 +29,13 @@ export function CreateAccountStepTwo({ onNext }: Props) {
   })
 
   const onSubmit = handleSubmit((data) => {
+    MIXPANEL.track({
+      eventName: 'Provided Wine Exp from Create Acc',
+      properties: {
+        distinct_id: leadEmail,
+        'Wine Experience': data.wineExperience
+      },
+    })
     onNext(data)
     stepper.setStep('step3')
   })
@@ -40,12 +49,12 @@ export function CreateAccountStepTwo({ onNext }: Props) {
         <div className="mt-10 max-w-sm">
           <Controller
             control={control}
-            name="foodExperience"
+            name="wineExperience"
             render={({ field: { onChange, value, ref } }) => {
               return (
                 <RadioGroup.Root
                   ref={ref}
-                  name="foodExperience"
+                  name="wineExperience"
                   onValueChange={onChange}
                   value={value}
                   aria-label="Wine experience"
