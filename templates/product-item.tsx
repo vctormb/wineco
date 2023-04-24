@@ -32,7 +32,7 @@ export function ProductItem({ wineItem, isSelected, onSelect }: Props) {
           priority
         />
       </div>
-      <div className="flex flex-col justify-between gap-1">
+      <div className="flex flex-col max-w-[11.25rem] sm:max-w-full justify-between gap-1">
         <div className="flex flex-col gap-1 text-sm">
           <span className="font-semibold text-red-900">{wineItem.label}</span>
           <span className="text-sm">
@@ -42,7 +42,7 @@ export function ProductItem({ wineItem, isSelected, onSelect }: Props) {
         <button
           aria-label={buttonLabel}
           onClick={() => onSelect()}
-          className="self-start min-w-[3.75rem] rounded-full p-2 border border-neutral-300 hover:bg-yellow-100 transition"
+          className="self-start min-w-[3.75rem] rounded-full p-1 sm:p-2 border border-neutral-300 hover:bg-yellow-100 transition"
         >
           {isSelected ? '-' : '+'}
         </button>

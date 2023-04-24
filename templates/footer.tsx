@@ -91,7 +91,7 @@ export function Footer() {
               ))}
             </ul>
           </div>
-          <div className="flex gap-16">
+          <div className="flex flex-col sm:flex-row gap-16">
             <ul className="flex gap-4 flex-col">
               <li>
                 <span className="font-semibold text-white">Our Company</span>

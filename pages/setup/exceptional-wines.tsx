@@ -94,7 +94,7 @@ export default function ExceptionalWines() {
       <h1 className="text-2xl font-semibold mt-7 mb-7 max-w-xs">
         some exceptional wines just for you!
       </h1>
-      <div className="grid grid-cols-1 lg:grid-cols-[repeat(2,_minmax(0,23.75rem))] gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-[repeat(2,_minmax(0,23.75rem))] gap-4">
         {wines.map((wine) => (
           <ProductItem
             key={wine.src}
