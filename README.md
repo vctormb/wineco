@@ -23,6 +23,10 @@ npm i
 npm run dev
 ```
 
+### About Mixpanel
+
+If you want to see all the mixpanel events that are being called access [here](https://github.com/vctormb/wineco/blob/main/utils/types.ts)
+
 ### Better DX
 
 - Go to your VS Code settings and add the following Tailwind class regex config
