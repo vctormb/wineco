@@ -25,28 +25,32 @@ export default function Create() {
       ...formValues,
     }
 
-    const res = await fetch('/api/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        fullName: payload.fullName,
+    try {
+      await fetch('/api/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullName: payload.fullName,
+          email: payload.email,
+        }),
+      })
+
+      const signInResult = await signIn('credentials', {
         email: payload.email,
-      }),
-    })
+        password: payload.password,
+        callbackUrl: '',
+        redirect: false,
+      })
 
-    const signInResult = await signIn('credentials', {
-      email: payload.email,
-      password: payload.password,
-      callbackUrl: '',
-      redirect: false,
-    })
-
-    if (signInResult?.error) {
+      if (signInResult?.error) {
+        setShowLoginErrorMessage(true)
+      } else {
+        router.push('/setup/exceptional-wines')
+      }
+    } catch {
       setShowLoginErrorMessage(true)
-    } else {
-      router.push('/setup/exceptional-wines')
     }
   }
 

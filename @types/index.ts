@@ -11,7 +11,6 @@ declare namespace NodeJS {
 declare module 'next-auth' {
   interface User {
     email: string
-    fullName: string
     expiresAt: number
   }
 
