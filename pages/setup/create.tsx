@@ -9,17 +9,45 @@ import { CreateAccountStepFour } from '@/templates/create-account-step-four'
 import { CreateAccountStepFive } from '@/templates/create-account-step-five'
 import { CreateAccountStepSix } from '@/templates/create-account-step-six'
 import { CreateAccountStepSeven } from '@/templates/create-account-step-seven'
+import { useRouter } from 'next/router'
+import { signIn } from 'next-auth/react'
+import { Form } from '@/components/form'
 
 export default function Create() {
+  const router = useRouter()
   const stepper = useStepper({ step: 'step1' })
+  const [showLoginErrorMessage, setShowLoginErrorMessage] = useState(false)
   const [formValues, setFormValues] = useState<Record<string, any>>({})
 
-  function onSubmit(data: object) {
+  async function onSubmit(data: object) {
     const payload = {
       ...data,
       ...formValues,
     }
-    console.log(payload)
+
+    const res = await fetch('/api/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        fullName: payload.fullName,
+        email: payload.email,
+      }),
+    })
+
+    const signInResult = await signIn('credentials', {
+      email: payload.email,
+      password: payload.password,
+      callbackUrl: '',
+      redirect: false,
+    })
+
+    if (signInResult?.error) {
+      setShowLoginErrorMessage(true)
+    } else {
+      router.push('/setup/exceptional-wines')
+    }
   }
 
   function onNext(data: object) {
@@ -41,7 +69,10 @@ export default function Create() {
           <CreateAccountStepTwo leadEmail={formValues.email} onNext={onNext} />
         </Stepper.Content>
         <Stepper.Content stepKey="step3">
-          <CreateAccountStepThree leadEmail={formValues.email} onNext={onNext} />
+          <CreateAccountStepThree
+            leadEmail={formValues.email}
+            onNext={onNext}
+          />
         </Stepper.Content>
         <Stepper.Content stepKey="step4">
           <CreateAccountStepFour leadEmail={formValues.email} onNext={onNext} />
@@ -59,6 +90,9 @@ export default function Create() {
           />
         </Stepper.Content>
       </Stepper.Root>
+      <Form.HelperMessage show={showLoginErrorMessage}>
+        Something went wrong. Try again.
+      </Form.HelperMessage>
     </div>
   )
 }

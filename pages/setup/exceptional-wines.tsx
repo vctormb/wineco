@@ -3,39 +3,72 @@ import Link from 'next/link'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { Button, ButtonLink } from '@/components/button'
 import { ProductItem, WineItem } from '@/templates/product-item'
+import { useSession } from 'next-auth/react'
+import { MIXPANEL } from '@/utils/mixpanel'
+import { useRouter } from 'next/router'
 
 const wines: WineItem[] = [
   {
     id: 1,
     label: 'Chateau Lafite Rothschild Pauillac, 2018',
-    price: '1,499.97',
+    price: 1499.97,
     src: '/chateau-lafite-rothschild.png',
   },
   {
     id: 2,
     label: 'Penfolds Cabernet-Shiraz Bin 389, 2019',
-    price: '58.99',
+    price: 58.99,
     src: '/penfolds-cabernet.png',
   },
   {
     id: 3,
     label: 'Antinori Tignanello, 2019',
-    price: '149.97',
+    price: 149.97,
     src: '/antinori-tignanello.png',
   },
   {
     id: 4,
     label: 'Harlan Estate Red, 2001',
-    price: '2,599.97',
+    price: 2599.97,
     src: '/harlan-estate-red.png',
   },
 ]
 
+const THE_END_MESSAGE =
+  "The end of the funnel 🎉 \nNow you will be redirected to the catalog's page!"
+
 export default function ExceptionalWines() {
+  const { data: session } = useSession()
+  const router = useRouter()
   const [selectedWines, setSelectedWines] = useState<WineItem[]>([])
 
   function onSubmit() {
-    console.log(selectedWines)
+    const wineIds = selectedWines.map((wine) => wine.id)
+    const winePrices = selectedWines.map((wine) => wine.price)
+
+    MIXPANEL.track({
+      eventName: 'Added Exceptional Wines to Cart',
+      properties: {
+        distinct_id: session?.user.email!,
+        'Wine IDs': wineIds,
+        'Wine Prices': winePrices,
+      },
+    })
+
+    alert(THE_END_MESSAGE)
+    router.push('/catalog')
+  }
+
+  function onClickSkip() {
+    MIXPANEL.track({
+      eventName: 'Skipped Exceptional Wines page',
+      properties: {
+        distinct_id: session?.user.email!,
+      },
+    })
+
+    alert(THE_END_MESSAGE)
+    router.push('/catalog')
   }
 
   function checkIsSelected(id: number) {
@@ -72,7 +105,13 @@ export default function ExceptionalWines() {
         ))}
       </div>
       <div className="my-10">
-        <ButtonLink href="/#" size="sm" type="button" variant="ghost">
+        <ButtonLink
+          href="/#"
+          size="sm"
+          type="button"
+          variant="ghost"
+          onClick={onClickSkip}
+        >
           Skip
         </ButtonLink>
         <Button

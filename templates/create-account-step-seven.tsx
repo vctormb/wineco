@@ -3,7 +3,6 @@ import { z } from 'zod'
 import { Button } from '@/components/button'
 import { Form } from '@/components/form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/router'
 import { MIXPANEL } from '@/utils/mixpanel'
 
 const validationSchema = z.object({
@@ -21,7 +20,6 @@ export function CreateAccountStepSeven({
   leadEmail,
   onSubmit: onSubmitProp,
 }: Props) {
-  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -40,7 +38,6 @@ export function CreateAccountStepSeven({
       },
     })
     onSubmitProp(data)
-    router.push('/setup/exceptional-wines')
   })
 
   return (

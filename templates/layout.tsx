@@ -1,5 +1,3 @@
-import { ButtonLink } from '@/components/button'
-import Link from 'next/link'
 import { ReactNode } from 'react'
 import { Footer } from './footer'
 import { Navbar } from './navbar'

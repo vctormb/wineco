@@ -1,9 +1,10 @@
+import { moneyFormatter } from '@/utils'
 import Image from 'next/image'
 
 export type WineItem = {
   id: number
   label: string
-  price: string
+  price: number
   src: string
 }
 
@@ -32,7 +33,7 @@ export function ProductItem({
       <div className="flex flex-col justify-between gap-1">
         <div className="flex flex-col gap-1 text-sm">
           <span className="font-semibold text-red-900">{wineItem.label}</span>
-          <span className="text-sm">$ {wineItem.price}</span>
+          <span className="text-sm">{moneyFormatter.format(wineItem.price)}</span>
         </div>
         <button
           onClick={() => onSelect()}

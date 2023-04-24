@@ -53,3 +53,17 @@ export type MixPanelTrack =
         'Full Name': string
       }
     }
+  | {
+      eventName: 'Added Exceptional Wines to Cart'
+      properties: {
+        distinct_id: string
+        'Wine IDs': number[]
+        'Wine Prices': number[]
+      }
+    }
+  | {
+      eventName: 'Skipped Exceptional Wines page'
+      properties: {
+        distinct_id: string
+      }
+    }

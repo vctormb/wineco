@@ -39,7 +39,7 @@ export function Navbar() {
           <ButtonLink href="/#" size="sm" color="secondary">
             Sign up
           </ButtonLink>
-          <ButtonLink href="/#" size="sm" variant="ghost" color="white">
+          <ButtonLink href="/login" size="sm" variant="ghost" color="white">
             Log In
           </ButtonLink>
         </div>
