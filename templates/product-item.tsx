@@ -8,15 +8,17 @@ export type WineItem = {
   src: string
 }
 
-export function ProductItem({
-  wineItem,
-  isSelected,
-  onSelect,
-}: {
+type Props = {
   wineItem: WineItem
   isSelected: boolean
   onSelect: () => void
-}) {
+}
+
+export function ProductItem({ wineItem, isSelected, onSelect }: Props) {
+  const buttonLabel = isSelected
+    ? `Remove ${wineItem.label} from cart`
+    : `Add ${wineItem.label} to cart`
+
   return (
     <div key={wineItem.src} className="flex gap-2">
       <div className="flex justify-center items-center bg-slate-100 p-2 rounded-lg h-[6.25rem] w-[6.25rem] lg:h-[7.5rem] lg:w-[7.5rem]">
@@ -33,9 +35,12 @@ export function ProductItem({
       <div className="flex flex-col justify-between gap-1">
         <div className="flex flex-col gap-1 text-sm">
           <span className="font-semibold text-red-900">{wineItem.label}</span>
-          <span className="text-sm">{moneyFormatter.format(wineItem.price)}</span>
+          <span className="text-sm">
+            {moneyFormatter.format(wineItem.price)}
+          </span>
         </div>
         <button
+          aria-label={buttonLabel}
           onClick={() => onSelect()}
           className="self-start min-w-[3.75rem] rounded-full p-2 border border-neutral-300 hover:bg-yellow-100 transition"
         >
