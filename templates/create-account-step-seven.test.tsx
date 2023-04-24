@@ -9,6 +9,7 @@ describe('CreateAccountStepSeven', () => {
     const { user } = setup(
       <Stepper.Root step="1" setStep={() => {}}>
         <CreateAccountStepSeven
+          isSubmitting={false}
           leadEmail="lead@email.com"
           onSubmit={onSubmitMock}
         />
@@ -24,11 +25,29 @@ describe('CreateAccountStepSeven', () => {
     await user.type(fullNameInput, fullName)
     await user.type(passwordInput, password)
 
-    await user.click(screen.getByRole('button', { name: 'Submit and go to exceptional wines' }))
+    await user.click(
+      screen.getByRole('button', { name: 'Submit and go to exceptional wines' })
+    )
 
     expect(onSubmitMock).toHaveBeenNthCalledWith(1, {
       fullName,
       password,
     })
+  })
+
+  it('should show loading text on submit button', async () => {
+    const onSubmitMock = jest.fn()
+
+    const { user } = setup(
+      <Stepper.Root step="1" setStep={() => {}}>
+        <CreateAccountStepSeven
+          isSubmitting={true}
+          leadEmail="lead@email.com"
+          onSubmit={onSubmitMock}
+        />
+      </Stepper.Root>
+    )
+
+    await user.click(screen.getByRole('button', { name: 'Loading...' }))
   })
 })

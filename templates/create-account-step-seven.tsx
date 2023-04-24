@@ -13,11 +13,13 @@ const validationSchema = z.object({
 type FormFields = z.infer<typeof validationSchema>
 type Props = {
   leadEmail: string
+  isSubmitting: boolean
   onSubmit: (data: FormFields) => void
 }
 
 export function CreateAccountStepSeven({
   leadEmail,
+  isSubmitting,
   onSubmit: onSubmitProp,
 }: Props) {
   const {
@@ -57,6 +59,7 @@ export function CreateAccountStepSeven({
             <Form.TextField
               placeholder="Enter your full name"
               fullWidth
+              autoComplete="name"
               {...register('fullName')}
             />
             <Form.HelperMessage show={!!errors.fullName}>
@@ -68,6 +71,7 @@ export function CreateAccountStepSeven({
               placeholder="Enter your new password"
               fullWidth
               type="password"
+              autoComplete="new-password"
               {...register('password')}
             />
             <Form.HelperMessage show={!!errors.password}>
@@ -76,7 +80,7 @@ export function CreateAccountStepSeven({
           </div>
         </div>
         <div className="mt-10">
-          <Button type="submit" disabled={!isValid}>
+          <Button type="submit" disabled={!isValid} isLoading={isSubmitting}>
             Submit and go to exceptional wines
           </Button>
         </div>

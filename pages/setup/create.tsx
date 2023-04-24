@@ -18,12 +18,15 @@ export default function Create() {
   const stepper = useStepper({ step: 'step1' })
   const [showLoginErrorMessage, setShowLoginErrorMessage] = useState(false)
   const [formValues, setFormValues] = useState<Record<string, any>>({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   async function onSubmit(data: object) {
     const payload = {
       ...data,
       ...formValues,
     }
+
+    setIsSubmitting(true)
 
     try {
       await fetch('/api/signup', {
@@ -40,16 +43,17 @@ export default function Create() {
       const signInResult = await signIn('credentials', {
         email: payload.email,
         password: payload.password,
-        callbackUrl: '',
         redirect: false,
       })
 
       if (signInResult?.error) {
+        setIsSubmitting(false)
         setShowLoginErrorMessage(true)
       } else {
         router.push('/setup/exceptional-wines')
       }
     } catch {
+      setIsSubmitting(false)
       setShowLoginErrorMessage(true)
     }
   }
@@ -90,6 +94,7 @@ export default function Create() {
         <Stepper.Content stepKey="step7">
           <CreateAccountStepSeven
             leadEmail={formValues.email}
+            isSubmitting={isSubmitting}
             onSubmit={onSubmit}
           />
         </Stepper.Content>
