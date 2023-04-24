@@ -2,15 +2,22 @@
 
 A simulation of a growth funnel of a wine e-commerce. Made with Next.js, Tailwind, Mixpanel and more!
 
+
+https://user-images.githubusercontent.com/13953703/233911965-c623fd7e-7442-4100-b457-82a4029761dd.mov
+
+
 ### Run the project
 
-Install dependencies
+1. Install dependencies
 
 ```
 npm i
 ```
 
-Run in dev mode
+2. Copy `.env.local.example` and paste it with a new name `.env.local`. Provide your Mixpanel token if you want to enable it.
+
+
+3. Run in dev mode
 
 ```
 npm run dev
@@ -25,3 +32,18 @@ npm run dev
   ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
 ]
 ```
+
+### Tech Stack
+- typescript
+- next.js
+- next-auth
+- tailwind (mobile-first)
+- react-hook-form
+- radix components
+- zod
+- testing-library
+- mixpanel
+
+### Todo
+- add more sections to the landing page
+- add google analytics
