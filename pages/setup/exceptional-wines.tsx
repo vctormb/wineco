@@ -6,6 +6,7 @@ import { ProductItem, WineItem } from '@/templates/product-item'
 import { useSession } from 'next-auth/react'
 import { MIXPANEL } from '@/utils/mixpanel'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 const wines: WineItem[] = [
   {
@@ -86,44 +87,49 @@ export default function ExceptionalWines() {
   const winesCountLabel = !!selectedWines.length ? selectedWines.length : ''
 
   return (
-    <div className="flex flex-col px-8 mt-10">
-      <Breadcrumb
-        activeIndex={1}
-        paths={['create account', 'exceptional wines', 'wines catalog']}
-      />
-      <h1 className="text-2xl font-semibold mt-7 mb-7 max-w-xs">
-        some exceptional wines just for you!
-      </h1>
-      <div className="grid grid-cols-1 lg:grid-cols-[repeat(2,_minmax(0,23.75rem))] gap-4">
-        {wines.map((wine) => (
-          <ProductItem
-            key={wine.src}
-            wineItem={wine}
-            isSelected={checkIsSelected(wine.id)}
-            onSelect={() => onSelectWine(wine)}
-          />
-        ))}
+    <>
+      <Head>
+        <title>Exceptional Wines</title>
+      </Head>
+      <div className="flex flex-col px-8 mt-10">
+        <Breadcrumb
+          activeIndex={1}
+          paths={['create account', 'exceptional wines', 'wines catalog']}
+        />
+        <h1 className="text-2xl font-semibold mt-7 mb-7 max-w-xs">
+          some exceptional wines just for you!
+        </h1>
+        <div className="grid grid-cols-1 lg:grid-cols-[repeat(2,_minmax(0,23.75rem))] gap-4">
+          {wines.map((wine) => (
+            <ProductItem
+              key={wine.src}
+              wineItem={wine}
+              isSelected={checkIsSelected(wine.id)}
+              onSelect={() => onSelectWine(wine)}
+            />
+          ))}
+        </div>
+        <div className="my-10">
+          <ButtonLink
+            href="/#"
+            size="sm"
+            type="button"
+            variant="ghost"
+            onClick={onClickSkip}
+          >
+            Skip
+          </ButtonLink>
+          <Button
+            type="submit"
+            size="sm"
+            onClick={onSubmit}
+            disabled={!selectedWines.length}
+          >
+            Add {winesCountLabel} wines to cart
+          </Button>
+        </div>
       </div>
-      <div className="my-10">
-        <ButtonLink
-          href="/#"
-          size="sm"
-          type="button"
-          variant="ghost"
-          onClick={onClickSkip}
-        >
-          Skip
-        </ButtonLink>
-        <Button
-          type="submit"
-          size="sm"
-          onClick={onSubmit}
-          disabled={!selectedWines.length}
-        >
-          Add {winesCountLabel} wines to cart
-        </Button>
-      </div>
-    </div>
+    </>
   )
 }
 

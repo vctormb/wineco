@@ -12,6 +12,7 @@ import { CreateAccountStepSeven } from '@/templates/create-account-step-seven'
 import { useRouter } from 'next/router'
 import { signIn } from 'next-auth/react'
 import { Form } from '@/components/form'
+import Head from 'next/head'
 
 export default function Create() {
   const router = useRouter()
@@ -63,46 +64,63 @@ export default function Create() {
   }
 
   return (
-    <div className="flex flex-col px-8 mt-10">
-      <Breadcrumb
-        activeIndex={0}
-        paths={['create account', 'exceptional wines', 'wines catalog']}
-      />
+    <>
+      <Head>
+        <title>Create Account</title>
+      </Head>
+      <div className="flex flex-col px-8 mt-10">
+        <Breadcrumb
+          activeIndex={0}
+          paths={['create account', 'exceptional wines', 'wines catalog']}
+        />
 
-      <Stepper.Root {...stepper}>
-        <Stepper.Content stepKey="step1">
-          <CreateAccountStepOne onNext={onNext} />
-        </Stepper.Content>
-        <Stepper.Content stepKey="step2">
-          <CreateAccountStepTwo leadEmail={formValues.email} onNext={onNext} />
-        </Stepper.Content>
-        <Stepper.Content stepKey="step3">
-          <CreateAccountStepThree
-            leadEmail={formValues.email}
-            onNext={onNext}
-          />
-        </Stepper.Content>
-        <Stepper.Content stepKey="step4">
-          <CreateAccountStepFour leadEmail={formValues.email} onNext={onNext} />
-        </Stepper.Content>
-        <Stepper.Content stepKey="step5">
-          <CreateAccountStepFive leadEmail={formValues.email} onNext={onNext} />
-        </Stepper.Content>
-        <Stepper.Content stepKey="step6">
-          <CreateAccountStepSix leadEmail={formValues.email} onNext={onNext} />
-        </Stepper.Content>
-        <Stepper.Content stepKey="step7">
-          <CreateAccountStepSeven
-            leadEmail={formValues.email}
-            isSubmitting={isSubmitting}
-            onSubmit={onSubmit}
-          />
-        </Stepper.Content>
-      </Stepper.Root>
-      <Form.HelperMessage show={showLoginErrorMessage}>
-        Something went wrong. Try again.
-      </Form.HelperMessage>
-    </div>
+        <Stepper.Root {...stepper}>
+          <Stepper.Content stepKey="step1">
+            <CreateAccountStepOne onNext={onNext} />
+          </Stepper.Content>
+          <Stepper.Content stepKey="step2">
+            <CreateAccountStepTwo
+              leadEmail={formValues.email}
+              onNext={onNext}
+            />
+          </Stepper.Content>
+          <Stepper.Content stepKey="step3">
+            <CreateAccountStepThree
+              leadEmail={formValues.email}
+              onNext={onNext}
+            />
+          </Stepper.Content>
+          <Stepper.Content stepKey="step4">
+            <CreateAccountStepFour
+              leadEmail={formValues.email}
+              onNext={onNext}
+            />
+          </Stepper.Content>
+          <Stepper.Content stepKey="step5">
+            <CreateAccountStepFive
+              leadEmail={formValues.email}
+              onNext={onNext}
+            />
+          </Stepper.Content>
+          <Stepper.Content stepKey="step6">
+            <CreateAccountStepSix
+              leadEmail={formValues.email}
+              onNext={onNext}
+            />
+          </Stepper.Content>
+          <Stepper.Content stepKey="step7">
+            <CreateAccountStepSeven
+              leadEmail={formValues.email}
+              isSubmitting={isSubmitting}
+              onSubmit={onSubmit}
+            />
+          </Stepper.Content>
+        </Stepper.Root>
+        <Form.HelperMessage show={showLoginErrorMessage}>
+          Something went wrong. Try again.
+        </Form.HelperMessage>
+      </div>
+    </>
   )
 }
 
