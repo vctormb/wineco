@@ -47,6 +47,7 @@ If you want to see all the mixpanel events that are being called access [here](h
 - zod
 - testing-library
 - mixpanel
+- google analytics 4
 
 ### Todo
 - add more sections to the landing page
