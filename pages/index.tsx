@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { ButtonLink } from '@/components/button'
 import { MIXPANEL } from '@/utils/mixpanel'
 import Head from 'next/head'
+import wineCheersImg from '../public/wine-cheers.webp'
 
 export default function Home() {
   return (
@@ -44,14 +45,14 @@ export default function Home() {
               </div>
             </div>
             <div className="hidden lg:block flex-1">
-              <div className="bg-neutral-300 rounded-lg h-full w-full relative">
+              <div className="relative bg-neutral-300 rounded-lg h-full w-full">
                 <Image
                   draggable={false}
                   alt="Wine cheers"
-                  src="/cheers-wine.jpg"
-                  className="h-full rounded-lg object-cover"
+                  src={wineCheersImg}
                   fill
                   priority
+                  className="object-cover w-full h-full rounded-lg"
                 />
               </div>
             </div>
