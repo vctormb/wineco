@@ -44,6 +44,7 @@ If you want to see all the mixpanel events that are being called access [here](h
 - tailwind (mobile-first)
 - react-hook-form
 - radix components
+- context api and jotai
 - zod
 - testing-library
 - mixpanel
@@ -51,4 +52,3 @@ If you want to see all the mixpanel events that are being called access [here](h
 
 ### Todo
 - add more sections to the landing page
-
