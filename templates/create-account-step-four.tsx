@@ -6,16 +6,14 @@ import { useStepperContext } from '@/components/stepper'
 import { OptionContent } from './option-content'
 import { Checkbox } from '@/components/checkbox'
 import { MIXPANEL } from '@/utils/mixpanel'
+import { leadEmailAtom } from '@/pages/setup/create'
+import { useAtomValue } from 'jotai'
 
 const validationSchema = z.object({
   favoriteTypeWine: z.array(z.string()).nonempty(),
 })
 
 type FormFields = z.infer<typeof validationSchema>
-type Props = {
-  leadEmail: string
-  onNext: (data: FormFields) => void
-}
 
 const options = [
   {
@@ -44,7 +42,9 @@ const options = [
   },
 ]
 
-export function CreateAccountStepFour({ leadEmail, onNext }: Props) {
+export function CreateAccountStepFour() {
+  const leadEmail = useAtomValue(leadEmailAtom)
+
   const stepper = useStepperContext()
   const {
     control,
@@ -66,7 +66,6 @@ export function CreateAccountStepFour({ leadEmail, onNext }: Props) {
         'Favorite Type Wine': data.favoriteTypeWine,
       },
     })
-    onNext(data)
     stepper.setStep('step5')
   })
 

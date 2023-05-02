@@ -6,18 +6,17 @@ import { RadioGroup } from '@/components/radio-group'
 import { useStepperContext } from '@/components/stepper'
 import { OptionContent } from './option-content'
 import { MIXPANEL } from '@/utils/mixpanel'
+import { useAtomValue } from 'jotai'
+import { leadEmailAtom } from '@/pages/setup/create'
 
 const validationSchema = z.object({
   oftenDrinkWine: z.string(),
 })
 
 type FormFields = z.infer<typeof validationSchema>
-type Props = {
-  leadEmail: string
-  onNext: (data: FormFields) => void
-}
 
-export function CreateAccountStepThree({ leadEmail, onNext }: Props) {
+export function CreateAccountStepThree() {
+  const leadEmail = useAtomValue(leadEmailAtom)
   const stepper = useStepperContext()
   const {
     control,
@@ -33,10 +32,9 @@ export function CreateAccountStepThree({ leadEmail, onNext }: Props) {
       eventName: 'Provided Often Drink Wine from Create Acc',
       properties: {
         distinct_id: leadEmail,
-        'Often Drink Wine': data.oftenDrinkWine
+        'Often Drink Wine': data.oftenDrinkWine,
       },
     })
-    onNext(data)
     stepper.setStep('step4')
   })
 

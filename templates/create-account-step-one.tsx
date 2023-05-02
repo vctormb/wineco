@@ -5,6 +5,8 @@ import { Form } from '@/components/form'
 import { useStepperContext } from '@/components/stepper'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { MIXPANEL } from '@/utils/mixpanel'
+import { useSetAtom } from 'jotai'
+import { leadEmailAtom } from '@/pages/setup/create'
 
 const validationSchema = z.object({
   email: z
@@ -14,12 +16,10 @@ const validationSchema = z.object({
 })
 
 type FormFields = z.infer<typeof validationSchema>
-type Props = {
-  onNext: (data: FormFields) => void
-}
 
-export function CreateAccountStepOne({ onNext }: Props) {
+export function CreateAccountStepOne() {
   const stepper = useStepperContext()
+  const setEmail = useSetAtom(leadEmailAtom)
   const {
     register,
     handleSubmit,
@@ -36,8 +36,7 @@ export function CreateAccountStepOne({ onNext }: Props) {
         distinct_id: data.email,
       },
     })
-
-    onNext(data)
+    setEmail(data.email)
     stepper.setStep('step2')
   })
 

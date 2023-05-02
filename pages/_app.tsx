@@ -5,6 +5,7 @@ import { NextPage } from 'next'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import { SessionProvider } from 'next-auth/react'
+import { Provider as JotaiProvider } from 'jotai'
 import { Auth, TOKEN_EXP_TWO_HOURS_ONE_MINUTE } from '@/templates/auth'
 import { Layout } from '@/templates/layout'
 import { MIXPANEL } from '@/utils/mixpanel'
@@ -62,7 +63,9 @@ export default function App({
         session={session}
         refetchInterval={TOKEN_EXP_TWO_HOURS_ONE_MINUTE}
       >
-        <Auth>{getLayout(<Component {...pageProps} />)}</Auth>
+        <JotaiProvider>
+          <Auth>{getLayout(<Component {...pageProps} />)}</Auth>
+        </JotaiProvider>
       </SessionProvider>
     </>
   )

@@ -4,6 +4,11 @@ import { Button } from '@/components/button'
 import { Form } from '@/components/form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { MIXPANEL } from '@/utils/mixpanel'
+import { useAtomValue } from 'jotai'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { signIn } from 'next-auth/react'
+import { leadEmailAtom } from '@/pages/setup/create'
 
 const validationSchema = z.object({
   fullName: z.string().min(1, { message: 'Name is required' }),
@@ -11,17 +16,12 @@ const validationSchema = z.object({
 })
 
 type FormFields = z.infer<typeof validationSchema>
-type Props = {
-  leadEmail: string
-  isSubmitting: boolean
-  onSubmit: (data: FormFields) => void
-}
 
-export function CreateAccountStepSeven({
-  leadEmail,
-  isSubmitting,
-  onSubmit: onSubmitProp,
-}: Props) {
+export function CreateAccountStepSeven() {
+  const router = useRouter()
+  const leadEmail = useAtomValue(leadEmailAtom)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showLoginErrorMessage, setShowLoginErrorMessage] = useState(false)
   const {
     register,
     handleSubmit,
@@ -31,15 +31,50 @@ export function CreateAccountStepSeven({
     mode: 'onTouched',
   })
 
-  const handleFormSubmit = handleSubmit((data) => {
-    MIXPANEL.track({
-      eventName: 'Provided Password from Create Acc',
-      properties: {
-        distinct_id: leadEmail,
-        'Full Name': data.fullName,
-      },
-    })
-    onSubmitProp(data)
+  const handleFormSubmit = handleSubmit(async (data) => {
+    const payload = {
+      email: leadEmail,
+      ...data,
+    }
+
+    setIsSubmitting(true)
+
+    try {
+      await fetch('/api/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullName: payload.fullName,
+          email: payload.email,
+        }),
+      })
+
+      const signInResult = await signIn('credentials', {
+        email: payload.email,
+        password: payload.password,
+        redirect: false,
+      })
+
+      if (signInResult?.error) {
+        setIsSubmitting(false)
+        setShowLoginErrorMessage(true)
+      } else {
+        MIXPANEL.track({
+          eventName: 'Provided Password from Create Acc',
+          properties: {
+            distinct_id: leadEmail,
+            'Full Name': data.fullName,
+          },
+        })
+
+        router.push('/setup/exceptional-wines')
+      }
+    } catch {
+      setIsSubmitting(false)
+      setShowLoginErrorMessage(true)
+    }
   })
 
   return (
@@ -49,7 +84,7 @@ export function CreateAccountStepSeven({
       </h1>
       <div className="flex gap-2 items-center my-5 text-sm">
         <p>your email is</p>
-        <span className="bg-yellow-100 font-semibold rounded-md px-3 py-1">
+        <span data-testid="leadEmail" className="bg-yellow-100 font-semibold rounded-md px-3 py-1">
           {leadEmail}
         </span>
       </div>
@@ -84,6 +119,9 @@ export function CreateAccountStepSeven({
             Submit and go to exceptional wines
           </Button>
         </div>
+        <Form.HelperMessage show={showLoginErrorMessage}>
+          Something went wrong. Try again.
+        </Form.HelperMessage>
       </form>
     </>
   )

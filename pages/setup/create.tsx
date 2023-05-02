@@ -1,5 +1,7 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement } from 'react'
 import Link from 'next/link'
+import Head from 'next/head'
+import { atom } from 'jotai'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { Stepper, useStepper } from '@/components/stepper'
 import { CreateAccountStepOne } from '@/templates/create-account-step-one'
@@ -9,59 +11,11 @@ import { CreateAccountStepFour } from '@/templates/create-account-step-four'
 import { CreateAccountStepFive } from '@/templates/create-account-step-five'
 import { CreateAccountStepSix } from '@/templates/create-account-step-six'
 import { CreateAccountStepSeven } from '@/templates/create-account-step-seven'
-import { useRouter } from 'next/router'
-import { signIn } from 'next-auth/react'
-import { Form } from '@/components/form'
-import Head from 'next/head'
+
+export const leadEmailAtom = atom<string>('')
 
 export default function Create() {
-  const router = useRouter()
   const stepper = useStepper({ step: 'step1' })
-  const [showLoginErrorMessage, setShowLoginErrorMessage] = useState(false)
-  const [formValues, setFormValues] = useState<Record<string, any>>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  async function onSubmit(data: object) {
-    const payload = {
-      ...data,
-      ...formValues,
-    }
-
-    setIsSubmitting(true)
-
-    try {
-      await fetch('/api/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fullName: payload.fullName,
-          email: payload.email,
-        }),
-      })
-
-      const signInResult = await signIn('credentials', {
-        email: payload.email,
-        password: payload.password,
-        redirect: false,
-      })
-
-      if (signInResult?.error) {
-        setIsSubmitting(false)
-        setShowLoginErrorMessage(true)
-      } else {
-        router.push('/setup/exceptional-wines')
-      }
-    } catch {
-      setIsSubmitting(false)
-      setShowLoginErrorMessage(true)
-    }
-  }
-
-  function onNext(data: object) {
-    setFormValues((s) => ({ ...s, ...data }))
-  }
 
   return (
     <>
@@ -76,49 +30,27 @@ export default function Create() {
 
         <Stepper.Root {...stepper}>
           <Stepper.Content stepKey="step1">
-            <CreateAccountStepOne onNext={onNext} />
+            <CreateAccountStepOne />
           </Stepper.Content>
           <Stepper.Content stepKey="step2">
-            <CreateAccountStepTwo
-              leadEmail={formValues.email}
-              onNext={onNext}
-            />
+            <CreateAccountStepTwo />
           </Stepper.Content>
           <Stepper.Content stepKey="step3">
-            <CreateAccountStepThree
-              leadEmail={formValues.email}
-              onNext={onNext}
-            />
+            <CreateAccountStepThree />
           </Stepper.Content>
           <Stepper.Content stepKey="step4">
-            <CreateAccountStepFour
-              leadEmail={formValues.email}
-              onNext={onNext}
-            />
+            <CreateAccountStepFour />
           </Stepper.Content>
           <Stepper.Content stepKey="step5">
-            <CreateAccountStepFive
-              leadEmail={formValues.email}
-              onNext={onNext}
-            />
+            <CreateAccountStepFive />
           </Stepper.Content>
           <Stepper.Content stepKey="step6">
-            <CreateAccountStepSix
-              leadEmail={formValues.email}
-              onNext={onNext}
-            />
+            <CreateAccountStepSix />
           </Stepper.Content>
           <Stepper.Content stepKey="step7">
-            <CreateAccountStepSeven
-              leadEmail={formValues.email}
-              isSubmitting={isSubmitting}
-              onSubmit={onSubmit}
-            />
+            <CreateAccountStepSeven />
           </Stepper.Content>
         </Stepper.Root>
-        <Form.HelperMessage show={showLoginErrorMessage}>
-          Something went wrong. Try again.
-        </Form.HelperMessage>
       </div>
     </>
   )
