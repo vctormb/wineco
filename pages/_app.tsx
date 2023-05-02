@@ -62,6 +62,7 @@ export default function App({
       <SessionProvider
         session={session}
         refetchInterval={TOKEN_EXP_TWO_HOURS_ONE_MINUTE}
+        refetchOnWindowFocus={false}
       >
         <JotaiProvider>
           <Auth>{getLayout(<Component {...pageProps} />)}</Auth>
